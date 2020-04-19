@@ -5,6 +5,11 @@ var player_direction = "right" setget set_player_direction
 var player_action = "" setget set_player_action
 export var velocity = Vector2(0, 0) setget set_velocity
 
+const tool_offset = {
+	"left": Vector2(-8, 4),
+	"right": Vector2(8, 4)
+}
+
 func set_velocity(new_value):
 	velocity = new_value
 	pass
@@ -35,11 +40,13 @@ func _physics_process(delta):
 		_on_idle()
 	if Input.is_action_pressed("player_left"):
 		$sprite.flip_h = true
+		$tool/weapon/sprite.flip_h = true
 		velocity_x = -1
 		speed = 100
 		_on_walking("left")
 	if Input.is_action_pressed("player_right"):
 		$sprite.flip_h = false
+		$tool/weapon/sprite.flip_h = false
 		velocity_x = 1
 		speed = 100
 		_on_walking("right")
@@ -67,6 +74,8 @@ func _on_walking(new_direction):
 	if player_action and player_action != new_direction: return
 	player_action = new_direction
 	player_direction = new_direction
+	if player_direction == "left" or player_direction == "right":
+		$tool.position = tool_offset[new_direction]
 	$animation.play("walking")
 	idle_timeout = 5
 	pass

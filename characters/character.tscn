@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://characters/character.gd" type="Script" id=1]
 [ext_resource path="res://assets/cat.png" type="Texture" id=2]
+[ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -20,8 +21,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "walking"
+[sub_resource type="Animation" id=3]
 length = 0.25
 loop = true
 tracks/0/type = "value"
@@ -50,5 +50,13 @@ frame = 6
 shape = SubResource( 1 )
 
 [node name="animation" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 3 )
-anims/walking = SubResource( 2 )
+anims/idle = SubResource( 2 )
+anims/walking = SubResource( 3 )
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+
+[node name="tool" type="Position2D" parent="."]
+position = Vector2( 8, 4 )
+
+[node name="weapon" parent="tool" instance=ExtResource( 3 )]
