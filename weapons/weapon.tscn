@@ -10,4 +10,4 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="barrel" type="Position2D" parent="."]
-position = Vector2( 5.5, -2.5 )
+scale = Vector2( 0.999186, 1 )

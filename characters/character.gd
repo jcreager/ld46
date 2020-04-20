@@ -10,6 +10,11 @@ const tool_offset = {
 	"right": Vector2(8, 4)
 }
 
+const projectile_velocity = {
+	"left": Vector2(-10, 0),
+	"right": Vector2(10, 0)
+}
+
 func set_velocity(new_value):
 	velocity = new_value
 	pass
@@ -68,6 +73,11 @@ func _input(event):
 	or event.is_action_released("player_right")):
 		player_action = ""
 		$animation.stop()
+	if event.is_action_pressed("attack"):
+		$tool/weapon.fire(
+			projectile_velocity[player_direction], 
+			$tool/weapon/barrel.position
+		)
 	pass
 
 func _on_walking(new_direction):
