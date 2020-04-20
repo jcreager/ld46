@@ -3,6 +3,8 @@ extends KinematicBody2D
 var idle_timeout = 100 setget set_idle_timeout
 var player_direction = "right" setget set_player_direction
 var player_action = "" setget set_player_action
+var facing = "right"
+
 export var velocity = Vector2(0, 0) setget set_velocity
 
 const tool_offset = {
@@ -75,7 +77,7 @@ func _input(event):
 		$animation.stop()
 	if event.is_action_pressed("attack"):
 		$tool/weapon.fire(
-			projectile_velocity[player_direction], 
+			projectile_velocity[facing], 
 			$tool/weapon/barrel.position
 		)
 	pass
@@ -85,6 +87,7 @@ func _on_walking(new_direction):
 	player_action = new_direction
 	player_direction = new_direction
 	if player_direction == "left" or player_direction == "right":
+		facing = new_direction
 		$tool.position = tool_offset[new_direction]
 	$animation.play("walking")
 	idle_timeout = 5
