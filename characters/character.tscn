@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://characters/character.gd" type="Script" id=1]
 [ext_resource path="res://assets/cat.png" type="Texture" id=2]
 [ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
@@ -37,6 +38,9 @@ tracks/0/keys = {
 "values": [ 5, 6, 7, 8, 9 ]
 }
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 8 )
+
 [node name="character" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -60,3 +64,8 @@ current = true
 position = Vector2( 8, 4 )
 
 [node name="weapon" parent="tool" instance=ExtResource( 3 )]
+
+[node name="area" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+shape = SubResource( 4 )

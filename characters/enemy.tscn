@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://characters/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/enemy.gd" type="Script" id=2]
+[ext_resource path="res://assets/robot-green.png" type="Texture" id=3]
+
+[node name="enemy" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+control_velocity = Vector2( 1, 1 )
+speed = 20
+move_range = Vector2( 50, 100 )
+
+[node name="sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="camera" parent="." index="3"]
+current = false
+
+[node name="tool" parent="." index="4"]
+visible = false
+
+[node name="weapon" parent="tool" index="0"]
+visible = false
