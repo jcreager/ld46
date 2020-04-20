@@ -5,7 +5,6 @@ var player_direction = "right" setget set_player_direction
 var player_action = "" setget set_player_action
 var facing = "right"
 var start = Vector2(0,0)
-var pause = 0
 
 export var velocity = Vector2(0, 0) setget set_velocity
 # used to control move_and_slide to set velocity
@@ -13,7 +12,6 @@ export var control_velocity = Vector2(0, 0) setget set_control_velocity
 export var speed = 0 setget set_speed
 export var armor = 4 setget set_armor
 export var move_range = Vector2(0,0) setget set_move_range
-export var pause_time = 0 setget set_pause_time
 
 const tool_offset = {
 	"left": Vector2(-8, 4),
@@ -59,16 +57,11 @@ func set_move_range(new_val):
 	move_range = new_val
 	pass
 
-func set_pause_time(new_val):
-	pause_time = new_val
-	pass
-
 func _ready():
 	set_process(true)
 	add_to_group("enemy")
-	connect("area_entered", self, "_on_area_entered")
+	$area.connect("area_entered", self, "_on_area_entered")
 	start = position
-	pause = pause_time
 	pass
 
 func _physics_process(delta):
@@ -77,14 +70,12 @@ func _physics_process(delta):
 		idle_timeout -= 1
 	else:
 		_on_idle()
-	print(start.x)
 	if position.x > start.x + move_range.x:
 		control_velocity.x = -control_velocity.x
 		_on_walking("left")
 		$sprite.flip_h = true
 		$tool/weapon/sprite.flip_h = true
 	if position.x < start.x:
-		print("yello")
 		control_velocity.x = abs(control_velocity.x)
 		_on_walking("right")
 		$sprite.flip_h = false
@@ -114,5 +105,5 @@ func _on_idle():
 
 func _on_area_entered(other):
 	if !other.is_in_group("enemy"):
-		other.armor -= 1
+		other.get_parent().armor -= 1
 	pass

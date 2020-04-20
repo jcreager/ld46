@@ -14,8 +14,8 @@ const tool_offset = {
 }
 
 const projectile_velocity = {
-	"left": Vector2(-10, 0),
-	"right": Vector2(10, 0)
+	"left": Vector2(-500, 0),
+	"right": Vector2(500, 0)
 }
 
 func set_velocity(new_value):
@@ -43,7 +43,7 @@ func set_armor(new_val):
 func _ready():
 	set_process(true)
 	add_to_group("player")
-	connect("area_entered", self, "_on_area_entered")
+	$area.connect("area_entered", self, "_on_area_entered")
 	pass
 
 func _physics_process(delta):
@@ -87,7 +87,7 @@ func _input(event):
 	if event.is_action_pressed("attack"):
 		$tool/weapon.fire(
 			projectile_velocity[facing], 
-			$tool/weapon/barrel.position
+			$tool/weapon/barrel.global_position
 		)
 	pass
 
@@ -108,6 +108,6 @@ func _on_idle():
 	pass
 
 func _on_area_entered(other):
-	if !other.is_in_group("enemy"):
-		other.armor -= 1
+	if other.is_in_group("enemy"):
+		other.get_parent().armor -= 1
 	pass
