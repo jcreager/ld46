@@ -1,2 +1,9 @@
 
 *.dmg
+*.zip
+*.wasm
+*.pck
+*.js
+*.html
+html/.DS_Store
+.DS_Store

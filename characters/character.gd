@@ -14,8 +14,8 @@ const tool_offset = {
 }
 
 const projectile_velocity = {
-	"left": Vector2(-500, 0),
-	"right": Vector2(500, 0)
+	"left": Vector2(-1, 0),
+	"right": Vector2(1, 0)
 }
 
 func set_velocity(new_value):

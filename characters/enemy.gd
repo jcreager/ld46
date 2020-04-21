@@ -104,6 +104,7 @@ func _on_idle():
 	pass
 
 func _on_area_entered(other):
-	if !other.is_in_group("enemy"):
-		other.get_parent().armor -= 1
+	if other.get_parent().is_in_group("enemy") or other.get_parent().is_in_group("projectile"):
+		return
+	other.get_parent().armor -= 1 
 	pass
